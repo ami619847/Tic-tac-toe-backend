@@ -15,7 +15,6 @@ const moves = (board1, board2) =>
     .reduce((a, b) => a.concat(b))
     .length
 
-
 @JsonController()
 export default class GameController {
     //getting a list of games
@@ -24,7 +23,7 @@ export default class GameController {
         const games = await Game.find()
         return { games }
     }
-
+    //creating a game by name
    @Post('/games')
     @HttpCode(201)
     createGame(
@@ -36,7 +35,7 @@ export default class GameController {
         game.board = defaultBoard
         return game.save()
     }
-
+    //updating the game
     @Put('/games/:id')
     async updateGame(
         @Param('id') id: number,
@@ -47,8 +46,8 @@ export default class GameController {
         //if there is updates for board, check on moves
         if (update.board) {
             if (moves(game.board, update.board) > 1) 
-                throw new BadRequestError('You are only allowed one move per turn')   
-        }          
+                throw new BadRequestError('You are only allowed one move per turn')
+        }                  
         return Game.merge(game, update).save() 
     }    
 }
