@@ -41,7 +41,7 @@ let GameController = class GameController {
         if (!game)
             throw new routing_controllers_1.NotFoundError('Cannot find a game');
         if (update.board) {
-            if (moves(game.board, update.board) > 1)
+            if (moves(game.board, update.board) > 2)
                 throw new routing_controllers_1.BadRequestError('You are only allowed one move per turn');
         }
         return entity_1.default.merge(game, update).save();
